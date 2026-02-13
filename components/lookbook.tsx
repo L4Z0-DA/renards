@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
 import { lookbookImages } from "@/lib/data"
 
@@ -35,28 +34,28 @@ export function Lookbook() {
         </h2>
       </div>
 
-      {/* Masonry-style grid */}
+      {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {lookbookImages.map((img, i) => (
           <button
             key={img.id}
             onClick={() => openLightbox(i)}
-            className={`group relative overflow-hidden opacity-0 animate-fade-in cursor-pointer ${
+            className={`group relative overflow-hidden cursor-pointer ${
               i === 0 ? "md:row-span-2 aspect-[3/4] md:aspect-auto" : "aspect-[4/3]"
             }`}
-            style={{ animationDelay: `${i * 150}ms` }}
+            style={{
+              animation: `fade-in 0.6s ease-out ${i * 150}ms forwards`,
+              opacity: 0,
+            }}
             aria-label={`Ver ${img.caption}`}
           >
-            <Image
+            <img
               src={img.src}
               alt={img.alt}
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-background/0 group-hover:bg-background/30 transition-all duration-500" />
 
-            {/* Caption */}
             <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
               <p className="font-mono text-[10px] tracking-[0.3em] text-foreground">
                 {img.caption}
@@ -69,7 +68,7 @@ export function Lookbook() {
       {/* Lightbox */}
       {lightboxIndex !== null && (
         <div
-          className="fixed inset-0 z-[70] bg-background/95 backdrop-blur-md flex items-center justify-center animate-fade-in"
+          className="fixed inset-0 z-[70] bg-background/95 backdrop-blur-md flex items-center justify-center"
           role="dialog"
           aria-modal="true"
           aria-label="Lightbox del lookbook"
@@ -99,19 +98,17 @@ export function Lookbook() {
           </button>
 
           <div className="relative w-full h-full max-w-5xl max-h-[85vh] m-8">
-            <Image
+            <img
               src={lookbookImages[lightboxIndex].src}
               alt={lookbookImages[lightboxIndex].alt}
-              fill
-              className="object-contain animate-scale-in"
-              sizes="100vw"
+              className="h-full w-full object-contain"
+              style={{ animation: "scale-in 0.3s ease-out" }}
             />
           </div>
 
-          {/* Caption */}
           <div className="absolute bottom-8 left-0 right-0 text-center">
             <p className="font-mono text-[10px] tracking-[0.4em] text-muted-foreground">
-              {lookbookImages[lightboxIndex].caption} — {lightboxIndex + 1}/{lookbookImages.length}
+              {lookbookImages[lightboxIndex].caption}{" \u2014 "}{lightboxIndex + 1}{"/"}{lookbookImages.length}
             </p>
           </div>
         </div>

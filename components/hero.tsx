@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import { ArrowDown } from "lucide-react"
-import Image from "next/image"
 
 export function Hero() {
   const [loaded, setLoaded] = useState(false)
@@ -15,18 +14,14 @@ export function Hero() {
     <section className="relative h-screen w-full overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
-        <Image
+        <img
           src="/images/hero.jpg"
           alt="RENARDS - Underground Streetwear"
-          fill
-          className={`object-cover object-center transition-transform duration-[2s] ease-out ${
+          className={`h-full w-full object-cover object-center transition-transform duration-[2s] ease-out ${
             loaded ? "scale-100" : "scale-110"
           }`}
-          priority
         />
-        {/* Dark overlay */}
         <div className="absolute inset-0 bg-background/60" />
-        {/* Bottom gradient */}
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background to-transparent" />
       </div>
 
@@ -68,7 +63,7 @@ export function Hero() {
                 key={i}
                 className="font-mono text-[10px] tracking-[0.4em] text-muted-foreground uppercase"
               >
-                UNDERGROUND STREETWEAR — RAW AESTHETICS — CLEAN DESIGN — HANDCRAFTED —
+                {"UNDERGROUND STREETWEAR \u2014 RAW AESTHETICS \u2014 CLEAN DESIGN \u2014 HANDCRAFTED \u2014"}
               </span>
             ))}
           </div>

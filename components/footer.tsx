@@ -12,7 +12,7 @@ export function Footer() {
             RENARDS
           </span>
           <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-            Underground streetwear nacido de la cultura urbana. Piezas diseñadas para quienes viven fuera del mainstream.
+            {"Underground streetwear nacido de la cultura urbana. Piezas dise\u00f1adas para quienes viven fuera del mainstream."}
           </p>
         </div>
 
@@ -22,23 +22,19 @@ export function Footer() {
             NAVEGACION
           </span>
           <nav className="flex flex-col gap-2">
-            {[
-              { href: "#productos", label: "Shop" },
-              { href: "#lookbook", label: "Lookbook" },
-              { href: "#about", label: "Nosotros" },
-            ].map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
+            <a href="#productos" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Shop
+            </a>
+            <a href="#lookbook" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Lookbook
+            </a>
+            <a href="#about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Nosotros
+            </a>
           </nav>
         </div>
 
-        {/* Social + Newsletter hint */}
+        {/* Social */}
         <div className="flex flex-col gap-4">
           <span className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground">
             CONECTA
@@ -65,10 +61,9 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Bottom */}
       <div className="mt-16 pt-6 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground">
-          RENARDS {new Date().getFullYear()}. ALL RIGHTS RESERVED.
+          {"RENARDS 2026. ALL RIGHTS RESERVED."}
         </p>
         <p className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground">
           MADE IN MEXICO

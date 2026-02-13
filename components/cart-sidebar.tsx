@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import { X, Minus, Plus, ShoppingBag } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
 import { formatPrice } from "@/lib/format"
@@ -15,12 +14,19 @@ export function CartSidebar() {
     <div className="fixed inset-0 z-[60]" role="dialog" aria-modal="true" aria-label="Carrito de compras">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-background/70 backdrop-blur-sm animate-fade-in"
+        className="absolute inset-0 bg-background/70 backdrop-blur-sm"
         onClick={closeCart}
+        onKeyDown={(e) => { if (e.key === 'Escape') closeCart() }}
+        role="button"
+        tabIndex={0}
+        aria-label="Cerrar carrito"
       />
 
       {/* Sidebar */}
-      <aside className="absolute right-0 top-0 bottom-0 w-full max-w-md bg-card border-l border-border flex flex-col animate-slide-in-right">
+      <aside
+        className="absolute right-0 top-0 bottom-0 w-full max-w-md bg-card border-l border-border flex flex-col"
+        style={{ animation: "slide-in-right 0.3s ease-out" }}
+      >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-border">
           <div className="flex items-center gap-3">
@@ -58,16 +64,14 @@ export function CartSidebar() {
               {items.map((item) => (
                 <div
                   key={`${item.product.id}-${item.size}`}
-                  className="flex gap-4 p-6 animate-fade-in"
+                  className="flex gap-4 p-6"
                 >
                   {/* Image */}
-                  <div className="relative w-20 h-24 bg-secondary shrink-0">
-                    <Image
+                  <div className="relative w-20 h-24 bg-secondary shrink-0 overflow-hidden">
+                    <img
                       src={item.product.image}
                       alt={item.product.name}
-                      fill
-                      className="object-cover"
-                      sizes="80px"
+                      className="h-full w-full object-cover"
                     />
                   </div>
 
@@ -78,12 +82,11 @@ export function CartSidebar() {
                         {item.product.name}
                       </h3>
                       <p className="font-mono text-[10px] text-muted-foreground mt-1">
-                        TALLA: {item.size}
+                        {"TALLA: "}{item.size}
                       </p>
                     </div>
 
                     <div className="flex items-center justify-between">
-                      {/* Quantity */}
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() =>
@@ -116,10 +119,9 @@ export function CartSidebar() {
                         </button>
                       </div>
 
-                      {/* Price and remove */}
                       <div className="flex items-center gap-3">
                         <span className="font-mono text-xs text-foreground">
-                          ${formatPrice(item.product.price * item.quantity)}
+                          {"$"}{formatPrice(item.product.price * item.quantity)}
                         </span>
                         <button
                           onClick={() =>
@@ -147,7 +149,7 @@ export function CartSidebar() {
                 SUBTOTAL
               </span>
               <span className="font-mono text-sm text-foreground">
-                ${formatPrice(totalPrice)} MXN
+                {"$"}{formatPrice(totalPrice)}{" MXN"}
               </span>
             </div>
             <button className="w-full bg-foreground text-background font-mono text-xs tracking-[0.2em] py-4 hover:bg-foreground/90 transition-colors">

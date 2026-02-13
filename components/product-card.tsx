@@ -1,7 +1,5 @@
 "use client"
 
-import { useState } from "react"
-import Image from "next/image"
 import { Eye } from "lucide-react"
 import type { Product } from "@/lib/data"
 import { formatPrice } from "@/lib/format"
@@ -13,24 +11,20 @@ type ProductCardProps = {
 }
 
 export function ProductCard({ product, onQuickView, index }: ProductCardProps) {
-  const [imageLoaded, setImageLoaded] = useState(false)
-
   return (
     <article
-      className="group relative opacity-0 animate-fade-in"
-      style={{ animationDelay: `${index * 100}ms` }}
+      className="group relative"
+      style={{
+        animation: `fade-in 0.6s ease-out ${index * 100}ms forwards`,
+        opacity: 0,
+      }}
     >
       {/* Image Container */}
       <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
-        <Image
+        <img
           src={product.image}
           alt={product.name}
-          fill
-          className={`object-cover transition-all duration-700 group-hover:scale-105 ${
-            imageLoaded ? "opacity-100" : "opacity-0"
-          }`}
-          onLoad={() => setImageLoaded(true)}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
 
         {/* Hover overlay */}
@@ -38,7 +32,7 @@ export function ProductCard({ product, onQuickView, index }: ProductCardProps) {
           <button
             onClick={() => onQuickView(product)}
             className="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 bg-foreground text-background px-6 py-3 font-mono text-xs tracking-[0.2em] flex items-center gap-2 hover:bg-foreground/90"
-            aria-label={`Vista rápida de ${product.name}`}
+            aria-label={`Vista rapida de ${product.name}`}
           >
             <Eye className="h-4 w-4" />
             VISTA RAPIDA
@@ -59,7 +53,7 @@ export function ProductCard({ product, onQuickView, index }: ProductCardProps) {
           {product.name}
         </h3>
         <p className="font-mono text-xs text-muted-foreground">
-          ${formatPrice(product.price)} MXN
+          {"$"}{formatPrice(product.price)}{" MXN"}
         </p>
       </div>
     </article>

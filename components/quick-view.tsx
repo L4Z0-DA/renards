@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image"
 import { X } from "lucide-react"
 import type { Product } from "@/lib/data"
 import { useCart } from "@/lib/cart-context"
@@ -28,24 +27,30 @@ export function QuickView({ product, onClose }: QuickViewProps) {
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-center justify-center p-4 animate-fade-in"
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4"
       role="dialog"
       aria-modal="true"
-      aria-label={`Vista rápida de ${product.name}`}
+      aria-label={`Vista rapida de ${product.name}`}
     >
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-background/80 backdrop-blur-sm"
         onClick={onClose}
+        onKeyDown={(e) => { if (e.key === 'Escape') onClose() }}
+        role="button"
+        tabIndex={0}
+        aria-label="Cerrar"
       />
 
       {/* Modal */}
-      <div className="relative bg-card border border-border max-w-3xl w-full max-h-[90vh] overflow-y-auto animate-scale-in">
-        {/* Close */}
+      <div
+        className="relative bg-card border border-border max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+        style={{ animation: "scale-in 0.3s ease-out" }}
+      >
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-10 text-foreground hover:text-muted-foreground transition-colors"
-          aria-label="Cerrar vista rápida"
+          aria-label="Cerrar vista rapida"
         >
           <X className="h-5 w-5" />
         </button>
@@ -53,12 +58,10 @@ export function QuickView({ product, onClose }: QuickViewProps) {
         <div className="flex flex-col md:flex-row">
           {/* Image */}
           <div className="relative aspect-[3/4] md:w-1/2 bg-secondary shrink-0">
-            <Image
+            <img
               src={product.image}
               alt={product.name}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              className="absolute inset-0 h-full w-full object-cover"
             />
             {product.isNew && (
               <span className="absolute top-4 left-4 bg-foreground text-background font-mono text-[10px] tracking-[0.2em] px-2 py-1">
@@ -77,7 +80,7 @@ export function QuickView({ product, onClose }: QuickViewProps) {
                 {product.name}
               </h2>
               <p className="font-mono text-lg text-foreground mb-6">
-                ${formatPrice(product.price)} MXN
+                {"$"}{formatPrice(product.price)}{" MXN"}
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed mb-8">
                 {product.description}
@@ -86,7 +89,7 @@ export function QuickView({ product, onClose }: QuickViewProps) {
               {/* Sizes */}
               <div className="mb-8">
                 <p className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground mb-3">
-                  TALLA {sizeError && <span className="text-destructive ml-2">— Selecciona una talla</span>}
+                  {"TALLA"}{sizeError ? <span className="text-destructive ml-2">{" \u2014 Selecciona una talla"}</span> : null}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {product.sizes.map((size) => (
@@ -109,7 +112,6 @@ export function QuickView({ product, onClose }: QuickViewProps) {
               </div>
             </div>
 
-            {/* Add to cart */}
             <button
               onClick={handleAddToCart}
               className="w-full bg-foreground text-background font-mono text-xs tracking-[0.2em] py-4 hover:bg-foreground/90 transition-colors"
