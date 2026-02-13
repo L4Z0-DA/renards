@@ -5,10 +5,13 @@ import { ArrowDown } from "lucide-react"
 
 export function Hero() {
   const [loaded, setLoaded] = useState(false)
+  const [imgError, setImgError] = useState(false)
 
   useEffect(() => {
     setLoaded(true)
   }, [])
+
+  console.log("[v0] Hero rendering, loaded:", loaded, "imgError:", imgError)
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -20,6 +23,11 @@ export function Hero() {
           className={`h-full w-full object-cover object-center transition-transform duration-[2s] ease-out ${
             loaded ? "scale-100" : "scale-110"
           }`}
+          onError={() => {
+            console.log("[v0] Hero image failed to load from /images/hero.jpg")
+            setImgError(true)
+          }}
+          onLoad={() => console.log("[v0] Hero image loaded successfully")}
         />
         <div className="absolute inset-0 bg-background/60" />
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background to-transparent" />

@@ -11,6 +11,7 @@ type ProductCardProps = {
 }
 
 export function ProductCard({ product, onQuickView, index }: ProductCardProps) {
+  console.log("[v0] ProductCard rendering:", product.name, "price formatted:", formatPrice(product.price), "image:", product.image)
   return (
     <article
       className="group relative"
