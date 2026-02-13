@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { X, Minus, Plus, ShoppingBag } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
+import { formatPrice } from "@/lib/format"
 
 export function CartSidebar() {
   const { items, isOpen, closeCart, removeItem, updateQuantity, totalPrice } =
@@ -118,7 +119,7 @@ export function CartSidebar() {
                       {/* Price and remove */}
                       <div className="flex items-center gap-3">
                         <span className="font-mono text-xs text-foreground">
-                          ${(item.product.price * item.quantity).toLocaleString()}
+                          ${formatPrice(item.product.price * item.quantity)}
                         </span>
                         <button
                           onClick={() =>
@@ -146,7 +147,7 @@ export function CartSidebar() {
                 SUBTOTAL
               </span>
               <span className="font-mono text-sm text-foreground">
-                ${totalPrice.toLocaleString()} MXN
+                ${formatPrice(totalPrice)} MXN
               </span>
             </div>
             <button className="w-full bg-foreground text-background font-mono text-xs tracking-[0.2em] py-4 hover:bg-foreground/90 transition-colors">

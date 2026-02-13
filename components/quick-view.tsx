@@ -5,6 +5,7 @@ import Image from "next/image"
 import { X } from "lucide-react"
 import type { Product } from "@/lib/data"
 import { useCart } from "@/lib/cart-context"
+import { formatPrice } from "@/lib/format"
 
 type QuickViewProps = {
   product: Product
@@ -76,7 +77,7 @@ export function QuickView({ product, onClose }: QuickViewProps) {
                 {product.name}
               </h2>
               <p className="font-mono text-lg text-foreground mb-6">
-                ${product.price.toLocaleString()} MXN
+                ${formatPrice(product.price)} MXN
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed mb-8">
                 {product.description}

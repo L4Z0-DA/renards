@@ -4,6 +4,7 @@ import { useState } from "react"
 import Image from "next/image"
 import { Eye } from "lucide-react"
 import type { Product } from "@/lib/data"
+import { formatPrice } from "@/lib/format"
 
 type ProductCardProps = {
   product: Product
@@ -58,7 +59,7 @@ export function ProductCard({ product, onQuickView, index }: ProductCardProps) {
           {product.name}
         </h3>
         <p className="font-mono text-xs text-muted-foreground">
-          ${product.price.toLocaleString()} MXN
+          ${formatPrice(product.price)} MXN
         </p>
       </div>
     </article>

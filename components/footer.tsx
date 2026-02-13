@@ -1,3 +1,5 @@
+"use client"
+
 import { Instagram } from "lucide-react"
 
 export function Footer() {
